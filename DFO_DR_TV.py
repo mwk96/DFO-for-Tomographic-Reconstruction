@@ -357,7 +357,7 @@ def compute_final_errors(reconstruction, refSino, W, phantom):
     # Compute e1 by forward projecting the final reconstruction
     xSino = np.zeros_like(refSino)
     W.FP(reconstruction, out=xSino)
-    e1 = np.sum(np.abs(refSino.flatten() - xSino.flatten()))
+    e1 = np.sum((refSino.flatten() - xSino.flatten()) ** 2)  # squared L2, matches paper Eq. for e1
     
     # Compute e2 as pixel-wise difference from ground truth
     e2 = np.sum(np.abs(phantom.flatten() - reconstruction.flatten()))
